@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎮🎬🎵Dark Sky🎮🎬🎵</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #f5f5f5;
+      text-align: center;
+      margin: 0;
+    }
+
+    header {
+      background-color: #1e1e1e;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #3b82f6;
+      flex-grow: 1;
+    }
+
+    #language-button {
+      background-color: #3b82f6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .video-container video {
+      width: 80%;
+      height: auto;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .control-button {
+      display: inline-block;
+      width: 100px;
+      height: 55px;
+      background-color: #3b82f6;
+      color: white;
+      text-align: center;
+      line-height: 55px;
+      margin: 10px;
+      position: relative;
+      cursor: pointer;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      transition: background-color 0.3s ease;
+    }
+
+    .control-button:hover {
+      background-color: #1e4faf;
+    }
+
+    .control-button:active {
+      background-color: gray;
+    }
+
+    .like-counter,
+    .subscribe-counter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .like-counter span,
+    .subscribe-counter span {
+      margin-left: 10px;
+      font-size: 20px;
+    }
+
+    .comments-section {
+      margin-top: 20px;
+      text-align: left;
+      width: 80%;
+      margin: 20px auto;
+      display: none;
+    }
+
+    .comment {
+      background-color: #1e1e1e;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .comment-form textarea {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+      border: 1px solid #3b82f6;
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .comment-form button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #1e1e1e;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    footer p {
+      margin: 0;
+      color: #a1a1aa;
+    }
+  </style>
+  <script>
+    let liked = false;
+    let subscribed = false;
+
+    function likeVideo() {
+      liked = !liked;
+      document.getElementById("like-count").innerText = liked ? 1 : 0;
+    }
+
+    function subscribe() {
+      subscribed = !subscribed;
+      document.getElementById("subscribe-count").innerText = subscribed ? 1 : 0;
+    }
+
+    function toggleComments() {
+      const section = document.getElementById("comments-section");
+      section.style.display = section.style.display === "none" ? "block" : "none";
+    }
+
+    function addComment() {
+      const input = document.getElementById("comment-input");
+      if (input.value.trim()) {
+        const list = document.getElementById("comment-list");
+        const div = document.createElement("div");
+        div.className = "comment";
+        div.innerText = input.value;
+        list.appendChild(div);
+        input.value = "";
+      }
+    }
+
+    function toggleLanguage() {
+      const elements = document.querySelectorAll("[data-en], [data-fa]");
+      elements.forEach(el => {
+        const currentText = el.innerText;
+        const en = el.getAttribute("data-en");
+        const fa = el.getAttribute("data-fa");
+        if (currentText === en) {
+          el.innerText = fa;
+        } else if (currentText === fa) {
+          el.innerText = en;
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <img src="C:/Users/jafari/Downloads/crak code/n44.jpg" alt="Logo" />
+    <h1 data-en="Welcome to Dark Sky" data-fa="به دارک اسکای خوش آمدید">Welcome to Dark Sky</h1>
+    <button id="language-button" onclick="toggleLanguage()">Switch Language</button>
+  </header>
+  <main>
+    <div class="video-container">
+      <video src="C:/Users/jafari/Downloads/crak code/بادی کم.mp4" controls></video>
+    </div>
+    <div class="controls">
+      <div class="control-button" onclick="likeVideo()" data-en="Like" data-fa="پسند">Like</div>
+      <div class="control-button" onclick="subscribe()" data-en="Subscribe" data-fa="اشتراک">Subscribe</div>
+      <div class="control-button" onclick="toggleComments()" data-en="Comments" data-fa="نظرات">Comments</div>
+    </div>
+    <div class="like-counter">
+      <div data-en="Likes:" data-fa="پسندیده:">Likes:</div>
+      <span id="like-count">0</span>
+    </div>
+    <div class="subscribe-counter">
+      <div data-en="Subscribers:" data-fa="دنبال‌کننده:">Subscribers:</div>
+      <span id="subscribe-count">0</span>
+    </div>
+    <div id="comments-section" class="comments-section">
+      <h2 data-en="Comments" data-fa="نظرات">Comments</h2>
+      <div id="comment-list"></div>
+      <div class="comment-form">
+        <textarea id="comment-input" placeholder="Write your comment..." rows="4"></textarea>
+        <button onclick="addComment()" data-en="Submit" data-fa="ارسال">Submit</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p data-en="© 2024 Dark Sky. All rights reserved." data-fa="© 2024 دارک اسکای. همه حقوق محفوظ است.">© 2024 Dark Sky. All rights reserved.</p>
+  </footer>
+</body>
+
+  </html>
